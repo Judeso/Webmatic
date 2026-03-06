@@ -209,7 +209,8 @@ class Webmatic_Hero_Widget extends \Elementor\Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-        <section class="hero-section">
+        <!-- Section Hero -->
+        <section id="hero" class="hero-section">
             <div class="container">
                 <div class="hero-content">
                     <h1 class="hero-title"><?php echo esc_html($settings['title']); ?></h1>

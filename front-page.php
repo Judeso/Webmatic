@@ -27,7 +27,7 @@ $is_elementor_edited = function_exists('webmatic_is_elementor_edited') && webmat
                 ?>
 
     <!-- Section Hero -->
-    <section class="hero-section">
+    <section id="hero" class="hero-section">
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-title">
@@ -126,7 +126,7 @@ $is_elementor_edited = function_exists('webmatic_is_elementor_edited') && webmat
     <?php if (get_theme_mod('webmatic_show_devis_section', true)) :
         $devis_page = get_theme_mod('webmatic_devis_page');
     ?>
-        <section class="devis-promo-section">
+        <section id="devis" class="devis-promo-section">
             <div class="container">
                 <div class="devis-promo-content">
                     <h2><?php esc_html_e('Générateur de Devis', 'webmatic'); ?></h2>
@@ -145,7 +145,7 @@ $is_elementor_edited = function_exists('webmatic_is_elementor_edited') && webmat
     <?php endif; ?>
 
     <!-- Section Réalisations -->
-    <section class="realisations-section">
+    <section id="realisations" class="realisations-section">
         <div class="container">
             <div class="section-header">
                 <h2><?php esc_html_e('Mes Réalisations', 'webmatic'); ?></h2>
@@ -208,7 +208,7 @@ $is_elementor_edited = function_exists('webmatic_is_elementor_edited') && webmat
     </section>
 
     <!-- Section Témoignages -->
-    <section class="testimonials-section">
+    <section id="testimonials" class="testimonials-section">
         <div class="container">
             <div class="section-header">
                 <h2><?php esc_html_e('Avis Clients', 'webmatic'); ?></h2>
@@ -270,7 +270,7 @@ $is_elementor_edited = function_exists('webmatic_is_elementor_edited') && webmat
     </section>
 
     <!-- Section Contact -->
-    <section class="contact-section">
+    <section id="contact" class="contact-section">
         <div class="container">
             <div class="section-header">
                 <h2><?php esc_html_e('Contactez-moi', 'webmatic'); ?></h2>
