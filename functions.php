@@ -81,12 +81,12 @@ function webmatic_enqueue_scripts() {
         WEBMATIC_VERSION
     );
 
-    // Font Awesome — jsDelivr (contourne les blocages CDN/LWSOptimize)
+    // Font Awesome — hébergé en local
     wp_enqueue_style(
-    'font-awesome',
-    WEBMATIC_THEME_URI . '/assets/fonts/fontawesome/css/all.min.css',
-    array(),
-    '6.4.0'
+        'font-awesome',
+        WEBMATIC_THEME_URI . '/assets/fonts/fontawesome/css/all.min.css',
+        array(),
+        '6.4.0'
     );
 
     // CSS des widgets
@@ -137,45 +137,23 @@ function webmatic_enqueue_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'webmatic_enqueue_scripts' );
 
-// Préconnexion jsDelivr pour accélérer le chargement
-function webmatic_preconnect() {
-    echo '<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>' . "\n";
-}
-add_action( 'wp_head', 'webmatic_preconnect', 1 );
-
 // ============================================================
 // 3. ZONES DE WIDGETS
 // ============================================================
 
 function webmatic_widgets_init() {
     $sidebars = array(
-        array(
-            'name' => __( 'Sidebar', 'webmatic' ),
-            'id'   => 'sidebar-1',
-            'desc' => __( 'Zone de widgets pour la sidebar', 'webmatic' ),
-        ),
-        array(
-            'name' => __( 'Footer 1', 'webmatic' ),
-            'id'   => 'footer-1',
-            'desc' => __( 'Zone de widgets footer colonne 1', 'webmatic' ),
-        ),
-        array(
-            'name' => __( 'Footer 2', 'webmatic' ),
-            'id'   => 'footer-2',
-            'desc' => __( 'Zone de widgets footer colonne 2', 'webmatic' ),
-        ),
-        array(
-            'name' => __( 'Footer 3', 'webmatic' ),
-            'id'   => 'footer-3',
-            'desc' => __( 'Zone de widgets footer colonne 3', 'webmatic' ),
-        ),
+        array( 'name' => __( 'Sidebar', 'webmatic' ),  'id' => 'sidebar-1', 'desc' => __( 'Zone de widgets sidebar', 'webmatic' ) ),
+        array( 'name' => __( 'Footer 1', 'webmatic' ), 'id' => 'footer-1',  'desc' => __( 'Footer colonne 1', 'webmatic' ) ),
+        array( 'name' => __( 'Footer 2', 'webmatic' ), 'id' => 'footer-2',  'desc' => __( 'Footer colonne 2', 'webmatic' ) ),
+        array( 'name' => __( 'Footer 3', 'webmatic' ), 'id' => 'footer-3',  'desc' => __( 'Footer colonne 3', 'webmatic' ) ),
     );
 
-    foreach ( $sidebars as $sidebar ) {
+    foreach ( $sidebars as $s ) {
         register_sidebar( array(
-            'name'          => $sidebar['name'],
-            'id'            => $sidebar['id'],
-            'description'   => $sidebar['desc'],
+            'name'          => $s['name'],
+            'id'            => $s['id'],
+            'description'   => $s['desc'],
             'before_widget' => '<div id="%1$s" class="widget %2$s">',
             'after_widget'  => '</div>',
             'before_title'  => '<h3 class="widget-title">',
@@ -189,50 +167,30 @@ add_action( 'widgets_init', 'webmatic_widgets_init' );
 // 4. ELEMENTOR
 // ============================================================
 
-/**
- * Enregistrer les locations Elementor
- */
-function webmatic_register_elementor_locations($elementor_theme_manager) {
+function webmatic_register_elementor_locations( $elementor_theme_manager ) {
     $elementor_theme_manager->register_all_core_location();
 }
-add_action('elementor/theme/register_locations', 'webmatic_register_elementor_locations');
+add_action( 'elementor/theme/register_locations', 'webmatic_register_elementor_locations' );
 
-/**
- * Vérifier si Elementor est actif
- */
 function webmatic_is_elementor_active() {
-    return did_action('elementor/loaded');
+    return did_action( 'elementor/loaded' );
 }
 
-/**
- * Vérifier si la page courante est éditée avec Elementor
- */
-function webmatic_is_elementor_edited($post_id = null) {
-    if (!webmatic_is_elementor_active()) {
-        return false;
-    }
-    
-    if (!$post_id) {
-        $post_id = get_the_ID();
-    }
-    
-    if (!$post_id) {
-        return false;
-    }
-    
-    return \Elementor\Plugin::$instance->db->is_built_with_elementor($post_id);
+function webmatic_is_elementor_edited( $post_id = null ) {
+    if ( ! webmatic_is_elementor_active() ) return false;
+    if ( ! $post_id ) $post_id = get_the_ID();
+    if ( ! $post_id ) return false;
+    return \Elementor\Plugin::$instance->db->is_built_with_elementor( $post_id );
 }
 
 function webmatic_load_elementor_widgets() {
     $file = WEBMATIC_THEME_DIR . '/inc/elementor-widgets.php';
-    if (file_exists($file)) {
-        require_once $file;
-    }
+    if ( file_exists( $file ) ) require_once $file;
 }
-add_action('elementor/init', 'webmatic_load_elementor_widgets');
+add_action( 'elementor/init', 'webmatic_load_elementor_widgets' );
 
 // ============================================================
-// 5. INCLUSION DES FICHIERS DU THÈME
+// 5. INCLUSION DES FICHIERS
 // ============================================================
 
 $webmatic_includes = array(
@@ -240,7 +198,6 @@ $webmatic_includes = array(
     '/inc/shortcodes.php',
     '/inc/customizer.php',
     '/inc/admin-devis.php',
-    // Nouvelles fonctionnalités
     '/inc/dark-mode.php',
     '/inc/animations.php',
     '/inc/parallax.php',
@@ -248,7 +205,7 @@ $webmatic_includes = array(
     '/inc/breadcrumb.php',
     '/inc/toasts.php',
     '/inc/lazy-loading.php',
-    '/inc/critical-css.php',
+    '/inc/critical-css.php',   // ← version corrigée (sans optimize_scripts)
     '/inc/schema-org.php',
     '/inc/sitemap.php',
     '/inc/reservation-rdv.php',
@@ -256,9 +213,7 @@ $webmatic_includes = array(
 
 foreach ( $webmatic_includes as $file ) {
     $path = WEBMATIC_THEME_DIR . $file;
-    if ( file_exists( $path ) ) {
-        require_once $path;
-    }
+    if ( file_exists( $path ) ) require_once $path;
 }
 
 // ============================================================
@@ -266,15 +221,9 @@ foreach ( $webmatic_includes as $file ) {
 // ============================================================
 
 function webmatic_body_classes( $classes ) {
-    if ( is_front_page() ) {
-        $classes[] = 'webmatic-home';
-    }
-    if ( is_singular() ) {
-        $classes[] = 'webmatic-singular';
-    }
-    if ( is_page_template( 'page-devis.php' ) ) {
-        $classes[] = 'webmatic-devis';
-    }
+    if ( is_front_page() )                    $classes[] = 'webmatic-home';
+    if ( is_singular() )                      $classes[] = 'webmatic-singular';
+    if ( is_page_template( 'page-devis.php' ) ) $classes[] = 'webmatic-devis';
     return $classes;
 }
 add_filter( 'body_class', 'webmatic_body_classes' );
@@ -287,19 +236,14 @@ add_filter( 'excerpt_length', function() { return 30; } );
 add_filter( 'excerpt_more',   function() { return '&hellip;'; } );
 
 // ============================================================
-// 8. SÉCURITÉ ET OPTIMISATION
+// 8. SÉCURITÉ
 // ============================================================
 
-// Masquer la version WordPress
 remove_action( 'wp_head', 'wp_generator' );
-
-// Supprimer les emojis WordPress (inutiles, allège la page)
-remove_action( 'wp_head',             'print_emoji_detection_script', 7 );
-remove_action( 'wp_print_styles',     'print_emoji_styles' );
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-remove_action( 'admin_print_styles',  'print_emoji_styles' );
-
-// Supprimer les liens inutiles dans le <head>
+remove_action( 'admin_print_styles', 'print_emoji_styles' );
 remove_action( 'wp_head', 'rsd_link' );
 remove_action( 'wp_head', 'wlwmanifest_link' );
 remove_action( 'wp_head', 'wp_shortlink_wp_head' );
