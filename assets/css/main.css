@@ -943,3 +943,242 @@ a {
     width: auto;
     z-index: 100000;
 }
+
+/* ===========================
+   15. PAGES LÉGALES
+   =========================== */
+
+.legal-page {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: calc(100vh - 200px);
+}
+
+.legal-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.legal-content h1 {
+    font-size: 2.5rem;
+    color: var(--color-dark);
+    margin-bottom: 0.5rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-primary), #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.legal-intro {
+    text-align: center;
+    color: var(--color-gray);
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.legal-section {
+    margin-bottom: 2.5rem;
+}
+
+.legal-section:last-of-type {
+    margin-bottom: 0;
+}
+
+.legal-section h2 {
+    font-size: 1.5rem;
+    color: var(--color-dark);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--color-primary);
+    display: inline-block;
+}
+
+.legal-section h3 {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin: 1.5rem 0 0.75rem;
+}
+
+.legal-section p {
+    color: #374151;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.legal-section ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.legal-section li {
+    margin-bottom: 0.5rem;
+    color: #374151;
+    line-height: 1.6;
+}
+
+.legal-section li strong {
+    color: var(--color-dark);
+}
+
+/* Table des durées de conservation */
+.legal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.legal-table thead {
+    background: linear-gradient(135deg, var(--color-primary), #3b82f6);
+    color: white;
+}
+
+.legal-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.legal-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    background: white;
+}
+
+.legal-table tbody tr:hover td {
+    background: #f8fafc;
+}
+
+/* Droits RGPD */
+.rgpd-right {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--color-primary);
+}
+
+.rgpd-right h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.rgpd-right h3 i {
+    color: var(--color-primary);
+    font-size: 1.25rem;
+}
+
+.rgpd-note {
+    background: #fef3c7;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    border-left: 3px solid #f59e0b;
+}
+
+.rgpd-note i {
+    color: #f59e0b;
+    margin-right: 0.5rem;
+}
+
+/* Méthodes de contact */
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.contact-method {
+    text-align: center;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    transition: var(--transition);
+}
+
+.contact-method:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.contact-method i {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+}
+
+.contact-method h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-dark);
+}
+
+.contact-method a {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.contact-method a:hover {
+    text-decoration: underline;
+}
+
+/* Info CNIL */
+.cnil-info {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+/* Date de mise à jour */
+.legal-date {
+    text-align: center;
+    color: var(--color-gray);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+/* Responsive pages légales */
+@media (max-width: 768px) {
+    .legal-content {
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+    
+    .legal-content h1 {
+        font-size: 1.75rem;
+    }
+    
+    .legal-section h2 {
+        font-size: 1.25rem;
+    }
+    
+    .legal-table {
+        font-size: 0.875rem;
+    }
+    
+    .legal-table th,
+    .legal-table td {
+        padding: 0.75rem;
+    }
+    
+    .contact-methods {
+        grid-template-columns: 1fr;
+    }
+}
