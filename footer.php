@@ -1,6 +1,6 @@
 <?php
 /**
- * Pied de page du thème
+ * Pied de page du thème - Layout Horizontal
  * 
  * @package WebMatic
  */
@@ -8,30 +8,40 @@
     </div><!-- #content -->
     
     <footer id="colophon" class="site-footer" role="contentinfo">
-        <div class="footer-widgets">
+        <div class="footer-main">
             <div class="container">
-                <div class="footer-columns">
-                    <?php if (is_active_sidebar('footer-1')) : ?>
-                    <div class="footer-column">
-                        <?php dynamic_sidebar('footer-1'); ?>
-                    </div>
-                    <?php endif; ?>
+                <div class="footer-horizontal">
                     
-                    <?php if (is_active_sidebar('footer-2')) : ?>
-                    <div class="footer-column">
-                        <?php dynamic_sidebar('footer-2'); ?>
+                    <!-- Logo & Description -->
+                    <div class="footer-brand">
+                        <?php if (has_custom_logo()) : ?>
+                            <div class="footer-logo">
+                                <?php the_custom_logo(); ?>
+                            </div>
+                        <?php else : ?>
+                            <h3 class="footer-site-title"><?php bloginfo('name'); ?></h3>
+                        <?php endif; ?>
+                        <p class="footer-tagline"><?php bloginfo('description'); ?></p>
                     </div>
-                    <?php endif; ?>
                     
-                    <?php if (is_active_sidebar('footer-3')) : ?>
-                    <div class="footer-column">
-                        <?php dynamic_sidebar('footer-3'); ?>
+                    <!-- Navigation Footer -->
+                    <div class="footer-nav">
+                        <h4><?php _e('Navigation', 'webmatic'); ?></h4>
+                        <?php
+                        wp_nav_menu(array(
+                            'theme_location' => 'footer',
+                            'menu_id'        => 'footer-menu',
+                            'container'      => false,
+                            'fallback_cb'    => false,
+                            'depth'          => 1,
+                        ));
+                        ?>
                     </div>
-                    <?php endif; ?>
                     
-                    <div class="footer-column footer-contact">
-                        <h3><?php _e('Contact', 'webmatic'); ?></h3>
-                        <ul class="contact-info">
+                    <!-- Contact Info -->
+                    <div class="footer-contact-info">
+                        <h4><?php _e('Contact', 'webmatic'); ?></h4>
+                        <ul class="contact-list-horizontal">
                             <?php if ($phone = get_theme_mod('webmatic_phone')) : ?>
                             <li>
                                 <i class="fas fa-phone"></i>
@@ -53,16 +63,20 @@
                             <?php if ($address = get_theme_mod('webmatic_address')) : ?>
                             <li>
                                 <i class="fas fa-map-marker-alt"></i>
-                                <?php echo esc_html($address); ?>
+                                <span><?php echo esc_html($address); ?></span>
                             </li>
                             <?php endif; ?>
                         </ul>
-                        
-                        <?php if (get_theme_mod('webmatic_show_social', true)) : ?>
-                        <div class="social-links">
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <?php if (get_theme_mod('webmatic_show_social', true)) : ?>
+                    <div class="footer-social">
+                        <h4><?php _e('Suivez-nous', 'webmatic'); ?></h4>
+                        <div class="social-icons">
                             <?php if ($facebook = get_theme_mod('webmatic_facebook')) : ?>
                             <a href="<?php echo esc_url($facebook); ?>" target="_blank" rel="noopener" aria-label="Facebook">
-                                <i class="fab fa-facebook"></i>
+                                <i class="fab fa-facebook-f"></i>
                             </a>
                             <?php endif; ?>
                             
@@ -74,7 +88,7 @@
                             
                             <?php if ($linkedin = get_theme_mod('webmatic_linkedin')) : ?>
                             <a href="<?php echo esc_url($linkedin); ?>" target="_blank" rel="noopener" aria-label="LinkedIn">
-                                <i class="fab fa-linkedin"></i>
+                                <i class="fab fa-linkedin-in"></i>
                             </a>
                             <?php endif; ?>
                             
@@ -84,36 +98,40 @@
                             </a>
                             <?php endif; ?>
                         </div>
-                        <?php endif; ?>
                     </div>
+                    <?php endif; ?>
+                    
                 </div>
             </div>
         </div>
         
         <div class="footer-bottom">
             <div class="container">
-                <div class="footer-bottom-content">
+                <div class="footer-bottom-horizontal">
                     <div class="copyright">
                         <?php
                         $copyright_text = get_theme_mod('webmatic_copyright_text', sprintf(
-                            __('&copy; %s WebMatic. Tous droits réservés.', 'webmatic'),
-                            date('Y')
+                            __('&copy; %s %s. Tous droits réservés.', 'webmatic'),
+                            date('Y'),
+                            get_bloginfo('name')
                         ));
                         echo wp_kses_post($copyright_text);
                         ?>
                     </div>
                     
-                    <?php
-                    if (has_nav_menu('footer')) {
-                        wp_nav_menu(array(
-                            'theme_location' => 'footer',
-                            'menu_id'        => 'footer-menu',
-                            'container'      => 'nav',
-                            'container_class' => 'footer-navigation',
-                            'depth'          => 1,
-                        ));
-                    }
-                    ?>
+                    <nav class="footer-legal-nav">
+                        <a href="<?php echo esc_url(home_url('/mentions-legales')); ?>">
+                            <?php _e('Mentions légales', 'webmatic'); ?>
+                        </a>
+                        <span class="separator">|</span>
+                        <a href="<?php echo esc_url(home_url('/politique-confidentialite')); ?>">
+                            <?php _e('Politique de confidentialité', 'webmatic'); ?>
+                        </a>
+                        <span class="separator">|</span>
+                        <a href="<?php echo esc_url(home_url('/rgpd')); ?>">
+                            <?php _e('RGPD', 'webmatic'); ?>
+                        </a>
+                    </nav>
                 </div>
             </div>
         </div>
