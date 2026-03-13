@@ -81,11 +81,11 @@ function webmatic_enqueue_scripts() {
         WEBMATIC_VERSION
     );
 
-    // Font Awesome — hébergé en local
+    // Font Awesome — CDN
     wp_enqueue_style(
         'font-awesome',
-        WEBMATIC_THEME_URI . '/assets/fonts/fontawesome/css/all.min.css',
-        array('webmatic-style'),
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+        array(),
         '6.4.0'
     );
 
