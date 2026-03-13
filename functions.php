@@ -85,7 +85,7 @@ function webmatic_enqueue_scripts() {
     wp_enqueue_style(
         'font-awesome',
         WEBMATIC_THEME_URI . '/assets/fonts/fontawesome/css/all.min.css',
-        array(),
+        array('webmatic-style'),
         '6.4.0'
     );
 
